@@ -1,7 +1,7 @@
 .env
 chroma_*
 chroma
-chroma_db/
+chroma/
 __pycache__
 *.pyc
 .vscode
