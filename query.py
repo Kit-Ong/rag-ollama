@@ -178,5 +178,4 @@ def rag_pipeline(query_text):
 # Define a query to test the RAG pipeline
 query = "How does Alice meet the Mad Hatter?"  # Change the query as needed
 response = rag_pipeline(query)
-# rag_pipeline(query)
 # print("######## Response from LLM ########\n", response)
