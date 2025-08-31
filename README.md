@@ -1,34 +1,29 @@
 # Running LLM locally with Ollama + RAG
 
 # What is Ollama
-Sama seperti halnya GPT, Gemini, Deepseek, Ollama adalah sebuat LLM yang bisa kita gunakan untuk membantu kita sebagai asisten.
-Yang paling membedakan antara Ollama dan LLM lainnya adalah, model-model yang tersedia bisa kita download sehingga bisa berjalan di <b>local computer</b>
+Just like GPT, Gemini, and Deepseek, Ollama is an LLM that we can use as an assistant.
+What most distinguishes Ollama from other LLMs is that the available models can be downloaded, allowing them to run on a <b>local computer</b>
 
-Ini sangat baik kalau kita mau belajar cara kerja LLM karena kita mempunyai akses penuh terhadap model. 
-Ada beberapa tipe model yang tersedia, mulai dari `Embedding`, `Vision`, `Tools`, dan `Thingking`
-kalian bisa lihat website [Ollama](https://ollama.com/search) untuk detail nya.
+This is very useful if we want to learn how LLMs work because we have full access to the model. There are several types of models available, ranging from `Embedding`, `Vision`, `Tools`, and `Thinking`. Each of those models has its own capability You can check the [Ollama](https://ollama.com/search) website for more details.
 
 
 # What is RAG
-RAG adalah kepanjangan dari Retrieval Augmented Generation. Sama seperti definisinya, RAG membuat kita bisa mengaugmentasi data sebagai context
-saat prompting ke LLM. dengan mengaugmentasi data, LLM bisa memberikan kita data yang lebih spesifik. 
+RAG stands for Retrieval Augmented Generation. As its definition suggests, RAG allows us to augment data as context when prompting an LLM. By augmenting the data, the LLM can provide us with more specific information.
 
-Untuk lebih mudah memahaminya, ketika kalian mengetik `Siapa itu Linus Torvald?`. LLM akan dengan mudah memberikan jawaban karena sudah memilik cukup banyak data terkait Linus Torvald. Namun, bagaimana kalau anda bertanya kepada LLM `siapa kepala sekolah anda saat sekolah?`, LLM akan mulai berhalusinasi karena tidak mempunyai data terkait diri anda.
+To make it easier to understand, when you type “Who is Linus Torvalds?”, the LLM can easily provide an answer because it already has plenty of data about Linus Torvalds. However, if you ask the LLM “Who was your principal when you were in school?”, the LLM will start to hallucinate because it has no data related to you.
 
-Dengan RAG kita bisa membuat data kita sendiri, semua data yang kita miliki bisa kita simpan dan Nantinya LLM akan menjadikan data itu sebagai konteks dalam menjawab. Sangat powerful bukan. 
+With RAG, we can create our own dataset; all the data we have can be stored, and later the LLM will use that data as context when answering. Very powerful, isn’t it?
 
-Pada artikel ini saya akan menjelaskan langkah-langkah untuk mulai mencoba Ollama dan RAG.
+In this article, I will explain the steps to get started with Ollama and RAG.
 
 
 # Setup Ollama
 
 ## Install Ollama
-Ollama memiliki CLI command yang bisa digunakan untuk bisa dijalankan menggunakan python script. 
-Download Olama [di sini](https://ollama.com/). 
+Ollama has a CLI command that can be executed through a Python script. Download Olama [here](https://ollama.com/). 
 
 ### Model for embeding
-Embedding adalah proses mengubah data seperti text, code, image ke dalam bentuk Vector. Data dalam format vector akan membantu kita dalam query
-dan mendapatkan hasil yang lebih akurat.
+Embedding is the process of converting data such as text, code, or images into vector form. Data in vector format helps us perform queries and obtain more accurate results.
 
 > Was trained with no overlap of the MTEB data, which indicates that the model generalizes well across several domains, tasks and text length.
 
@@ -37,7 +32,7 @@ For detail, you can checkout [here](https://ollama.com/library/mxbai-embed-large
 mxbai-embed-large
 ```
 ### Model for code
-Setelah kita melakukan embedding menggunakan model `mxai-embed-large`, kita perlu query dengan menggunakan model yang lain. `CodeLlamma` adalah model yang bisa digunakan karena model ini adalah model yang spesifik untuk code. 
+After we perform embedding using the `mxbai-embed-large model`, we need to run queries with another model. `CodeLlama` is a model that can be used because it is specifically designed for code.
 
 > Code Llama is a model for generating and discussing code, built on top of Llama 2. It’s designed to make workflows faster and efficient for developers and make it easier for people to learn how to code. It can generate both code and natural language about code. Code Llama supports many of the most popular programming languages used today, including Python, C++, Java, PHP, Typescript (Javascript), C#, Bash and more.
 
@@ -48,7 +43,7 @@ codellamma
 
 ## Install dependencies
 
-1. Do the following before installing the dependencies found in `requirements.txt` file because of current challenges installing `onnxruntime` through `pip install onnxruntime`. 
+1. Installing `onnxruntime` through `pip install onnxruntime`. 
 
     - For MacOS users, a workaround is to first install `onnxruntime` dependency for `chromadb` using:
 
@@ -73,21 +68,8 @@ pip install langchain-community==0.2.3
 pip install langchain==0.2.2
 ```
 
-## Create database
-
-Create the Chroma DB.
-
-```python
-python create_database.py
-```
-
-Here are steps 
-+ Put all files into directory
-+ 
-
+After all dependencies installed. Now we can try to run the python script to see how the magic works.
 ## Run 
-
-Query the Chroma DB.
 
 ```python
 python query_ollama.py
