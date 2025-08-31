@@ -7,7 +7,7 @@ from langchain_ollama import OllamaEmbeddings
 from langchain_community.vectorstores import Chroma
 
 # DATA_PATH = "data/books"
-DATA_PATH = "../../data_source/m2u_android"
+DATA_PATH = "[PATH_TO_YOUR_FOLDER]"
 embedding_model = OllamaEmbeddings(model="mxbai-embed-large")
 
 def generate_data_store():
@@ -50,7 +50,7 @@ def process_to_embedding():
     try:
         collection = client.get_collection(collection_name)
         print("Collection"+": "+str(collection.count()))
-        print(f"Collection '{collection_name}' exists ✅")
+        print(f"Collection '{collection_name}' exists!")
     except:
         collection = client.create_collection(collection_name)
         print(f"Created new collection '{collection_name}'")
@@ -114,4 +114,3 @@ def prompting():
 
 if __name__ == "__main__":
     prompting()
-# an example input
