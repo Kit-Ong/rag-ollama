@@ -75,4 +75,11 @@ After all dependencies installed. Now we can try to run the python script to see
 python query_ollama.py
 ```
 
+## 🙋 Support
+Feel free to ask any questions, raise problems, and request new features in Discussion.
+
+## 📄 License
+
+Source code in this repository is made available under the [Apache License Version 2.0](LICENSE).
+
 
