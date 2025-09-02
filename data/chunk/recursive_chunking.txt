@@ -1,0 +1,165 @@
+[
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='As mobile developers, it’s not enough to just build functional apps; we must ensure their security.'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='ensure their security. Previously, app security often seemed like a backend-only concern, handled'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='concern, handled by measures like authentication, authorization, and TLS.'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='Backend security is crucial, but it’s equally vital to understand mobile app security. After all,'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='app security. After all, the user’s first interaction is always through the app. What if the users'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='app. What if the users are unaware their devices are infected with malware, which can then make our'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='which can then make our applications vulnerable.'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='Imagine the user install unknown app from unofficial store on their laptop. They might not realize'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='They might not realize it contains a keylogger. Then, when user access websites and make'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='access websites and make transactions, the keylogger secretly records your username, password, and'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='username, password, and other sensitive information without you ever knowing. It will leads to'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='It will leads to another vulnerabilities even though we securing our BE side with full power.'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='Just like computers, smartphones also have operating systems that allow processes to run in the'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='processes to run in the background unnoticed by the user. Therefore, smartphones are susceptible to'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='are susceptible to the same vulnerabilities as computers.'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='When your application operates on an insecure device, the risk of attacks stemming from user'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='stemming from user negligence significantly increases. This can expose your app to a range of'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='your app to a range of threats, from SMS logging — where malicious software intercepts one-time'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='intercepts one-time passwords (OTPs) sent via text — to keyloggers that record every keystroke,'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='record every keystroke, potentially stealing sensitive data. Other vulnerabilities like tapjacking,'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='like tapjacking, which tricks users into tapping on unintended elements, also become serious'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='also become serious concerns. Essentially, if the underlying device isn’t secure, your app becomes'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='secure, your app becomes a potential victim of these intrusive methods, compromising user data and'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='user data and application integrity.'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='What is OWASP? A Foundation for Secure Development'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='So, what exactly is OWASP? OWASP (Open Worldwide Application Security Project) is a non-profit'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='Project) is a non-profit organization dedicated to establishing security standards and improving'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='standards and improving software security. You can find more detailed information about OWASP.'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='Why knowing OWASP Matters?'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='In software development, we often feel insecure about the applications we’re building. Remember, we'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='building. Remember, we don’t know what we don’t know. That’s precisely why we need to understand'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='we need to understand security standards. Security is a cat-and-mouse game; vulnerabilities will'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='vulnerabilities will always emerge. Just because we can patch a security hole today doesn’t mean'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='hole today doesn’t mean new ones won’t appear tomorrow.'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='Google, as a principal authority in Android development, also recommends OWASP as a benchmark for'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='OWASP as a benchmark for securing Android applications.'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='OWASP provides a dedicated sub-field that specifically delves into the intricacies of mobile'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='intricacies of mobile application security. This specialized area is widely recognized as OWASP'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='recognized as OWASP Mobile Application Security (OWASP MAS). Within its comprehensive framework,'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='comprehensive framework, you’ll find a variety of crucial topics, including:'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='Standard for privacy (OWASP MASVS)'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='Collection of mobile application Vulnarabillities (OWASP MASWE),'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='How to test mobile security (OWASP MASTG).\n\nHere are some of the standardization categories:'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='Storage\n\nCrypto\n\nAuthentication\n\nNetwork\n\nPlatform\n\nCode\n\nResilience\n\nPrivacy'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='Beyond offering standardization, vulnerability insights, and mobile app testing methods, what’s'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='testing methods, what’s most compelling about OWASP is the playground on their website. It allows'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='their website. It allows us to practice testing applications through reverse engineering. This'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='engineering. This provides a practical way to learn how to find security flaws in apps. With'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='flaws in apps. With consistent practice, you can then apply these skills to your own applications.'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='Here are some of the knowledge and best practices you can find on the OWASP website, including:'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='Code Obfuscation'), Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='Code obfuscation is the process of modifying an app’s binary to make it harder for humans to'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='it harder for humans to understand. Obfuscation hides function and class names in your compiled'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='names in your compiled code, replacing each symbol with another symbol, making it difficult for an'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='it difficult for an attacker to reverse engineer your proprietary app. (Detail)'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='Runtime Integrity Verification'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='Your app might seem secure because some data is stored using NDK (C/C++), making it hard to find'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='making it hard to find through reverse engineering. However, attackers can manipulate data at'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='can manipulate data at runtime. That’s why it’s crucial to also check your app’s integrity during'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='app’s integrity during runtime. (Detail)'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='Secure Shared Preference'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='SharedPreferences are typically used to store data in an XML file format. Their advantage lies in'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='Their advantage lies in their key-value structure, which makes them easy to access for simple data'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='access for simple data like usernames, login status, and so on. However, for sensitive data, you'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='for sensitive data, you should always use EncryptedSharedPreferences. (Detail)'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='Google Play Integrity'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='Google Play Integrity (formerly SafetyNet) is used to ensure your application is running in a'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='is running in a secure device environment. For example, it helps detect rooted devices or apps'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='rooted devices or apps downloaded from outside Google Play. (Detail)'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='Permission Handling'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='Before adding any permissions to your app, it’s crucial to understand why that permission is truly'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='that permission is truly needed. For instance, if you have a QR feature, you only need camera'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='you only need camera access. In this case, it’s best to use runtime permissions, meaning the'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='permissions, meaning the permission is only requested when the feature is actually used. Moreover,'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='actually used. Moreover, if your app only needs to capture images, consider using a built-in camera'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='using a built-in camera app. This way, your app won’t require camera access directly. (Detail)'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='Conclusion'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='The examples above are just a few of the minimum requirements to help secure your application. The'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='your application. The OWASP website provides much more detailed information on various types of'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='on various types of security vulnerabilities and how to address them.'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='Finally, always remember: security is a cat-and-mouse game. No matter how robust our defenses,'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='how robust our defenses, there will always be new vulnerabilities we need to watch out for.'), 
+    
+    Document(metadata={'source': 'data/md/owasp_android.md'}, page_content='Happy coding ~~')]
