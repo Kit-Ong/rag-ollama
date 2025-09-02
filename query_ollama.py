@@ -1,24 +1,26 @@
-import ollama
 import chromadb
+from typing import List
 from langchain.schema import Document
 from langchain_community.document_loaders import DirectoryLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_ollama import OllamaEmbeddings
 from langchain_community.vectorstores import Chroma
+from langchain_ollama import OllamaLLM
+from langchain_core.prompts import ChatPromptTemplate
 
-# DATA_PATH = "data/books"
-DATA_PATH = "[PATH_TO_YOUR_FOLDER]"
+DATA_PATH = "data/md"
+# DATA_PATH = "[PATH_TO_YOUR_FOLDER]"
 embedding_model = OllamaEmbeddings(model="mxbai-embed-large")
+generative_model = OllamaLLM(model="codellama")
 
 def generate_data_store():
     documents = load_documents()
-    chunks = split_text(documents)
+    chunks = smart_chunk_with_llm(documents)
     return chunks
 
 def load_documents():
     loader = DirectoryLoader(
-        path=DATA_PATH, 
-        glob="*.java", 
+        path=DATA_PATH,
         recursive=True
     )
     documents = loader.load()
@@ -26,10 +28,9 @@ def load_documents():
 
 
 def split_text(documents: list[Document]):
-    text_splitter = RecursiveCharacterTextSplitter.from_language(
+    text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=300,
-        chunk_overlap=100, 
-        language="java"
+        chunk_overlap=100
     )
     chunks = text_splitter.split_documents(documents)
     print(f"Split {len(documents)} documents into {len(chunks)} chunks.")
@@ -40,6 +41,55 @@ def split_text(documents: list[Document]):
 
     return chunks
 
+def smart_chunk_with_llm(documents: list[Document], chunk_size: int = 50) -> List[str]:
+    """
+    Chunks text using LLM to find natural semantic boundaries
+    
+    Args:
+        text: Input text to chunk
+        chunk_size: Target chunk size (approximate)
+    
+    Returns:
+        List of text chunks
+    """
+    llm = OllamaLLM(model="codellama")
+    
+    # Initial rough splits to handle large texts
+    text_splitter = RecursiveCharacterTextSplitter(
+        chunk_size=300,
+        chunk_overlap=100,
+    )
+    rough_chunks = text_splitter.split_documents(documents)
+    
+    
+    final_chunks = []
+    
+    for chunk in rough_chunks:
+        prompt = f"""
+        Analyze this text and find the best place to split it into smaller chunks.
+        Return only the character position number where the split should occur.
+        The split should be at a natural break point (end of sentence, paragraph, etc).
+        
+        Text: {chunk}
+        """
+        
+        try:
+            # Get split point from LLM
+            split_point = int(llm.predict(prompt).strip())
+            
+            if 0 < split_point < len(chunk):
+                final_chunks.append(chunk[:split_point])
+                final_chunks.append(chunk[split_point:])
+            else:
+                final_chunks.append(chunk)
+                
+        except:
+            # Fallback: just use the rough chunk
+            final_chunks.append(chunk)
+    
+    return [c for c in final_chunks if c]
+
+
 
 client = chromadb.PersistentClient(path="chroma_db")
 collection = client.get_or_create_collection(name="docs")
@@ -49,11 +99,8 @@ def process_to_embedding():
     # Get or create collection
     try:
         collection = client.get_collection(collection_name)
-        print("Collection"+": "+str(collection.count()))
-        print(f"Collection '{collection_name}' exists!")
     except:
         collection = client.create_collection(collection_name)
-        print(f"Created new collection '{collection_name}'")
 
 
     if collection.count() > 0:
@@ -62,7 +109,7 @@ def process_to_embedding():
         # # store each document in a vector embedding database
         documents = generate_data_store()
 
-        vectorstore = Chroma.from_documents(
+        Chroma.from_documents(
             documents=documents,
             embedding=embedding_model,
             collection_name=collection_name,
@@ -87,30 +134,41 @@ def prompting():
             print("Exiting the application. Goodbye!")
             break
 
-        collection2 = process_to_embedding()
-        # generate an embedding for the input and retrieve the most relevant doc
-        response = ollama.embed(
-            model="mxbai-embed-large",
-            input=user_input
-        )
-        results = collection2.query(
-        query_embeddings = response["embeddings"],
-            n_results=1
-        )
-        data = results['documents'][0][0]
+        collection2 = process_to_embedding() # ensure collection is ready
+        response = embedding_model.embed_query(text=user_input) # embedding query so we can search on vectors
 
-        # generate a response combining the prompt and data we retrieved in step 2
-        output = ollama.generate(
-            model="codellama",
-            prompt=f"Using this data: {data}. Respond to this prompt: {input}"
+        # query the collection for relevant documents
+        results = collection2.query(
+            query_embeddings = response,
+            n_results=3
         )
+
+        ###
+        #  if no relevant documents found, inform the user
+        #  relevant result only if distance is less than 1 (tweak as needed) and greater than 0.1
+        ###
+        if results['distances'][0][0] > 1:
+            data = "No relevant data found."
+            output = "I'm sorry, I don't have enough information to answer that question."
+        else:
+            data = results['documents'][0][0]
+
+            template = """
+                Using this data: {data}. 
+                Respond to this prompt: {question}.
+                Dont use any data outside of this text to answer the question.
+                """
+            prompt = ChatPromptTemplate.from_template(template)
+            
+            chain = prompt | generative_model
+            output = chain.invoke({"question": user_input, "data": data})
 
         print("#### Response RAG ####")
         print(data)
         print("\n")
 
         print("#### Response LLM ####")
-        print(output['response'])
+        print(output)
 
 if __name__ == "__main__":
     prompting()
