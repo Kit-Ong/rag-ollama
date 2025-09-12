@@ -23,7 +23,7 @@ collection_name = "docs"
 ###
 def generate_data_store():
     documents = load_documents()
-    chunks = smart_chunk_with_llm(documents)
+    chunks = conventional_chunk(documents)  # Use faster conventional chunking
     return chunks
 
 ###
@@ -93,7 +93,7 @@ def smart_chunk_with_llm(documents: list[Document], chunk_size: int = 50) -> Lis
         
         try:
             # Get split point from LLM
-            split_point = int(llm.predict(prompt).strip())
+            split_point = int(llm.invoke(prompt).strip())
             
             if 0 < split_point < len(chunk):
                 final_chunks.append(chunk[:split_point])
@@ -118,27 +118,23 @@ def process_to_embedding():
     except:
         collection = client.create_collection(collection_name)
 
-
     if collection.count() > 0:
+        print(f"Using existing collection with {collection.count()} documents")
         collection = client.get_collection("docs")
     else:
-        # # store each document in a vector embedding database
+        print("Creating new embeddings...")
+        # Store each document in a vector embedding database
         documents = generate_data_store()
 
-        Chroma.from_documents(
+        # Use Chroma.from_documents to create the vector store
+        vectorstore = Chroma.from_documents(
             documents=documents,
             embedding=embedding_model,
             collection_name=collection_name,
             persist_directory="chroma_db"  # saves locally
         )
-        for i, doc in enumerate(documents):
-            embedding = embedding_model.embed_query(doc.page_content)
-            collection.add(
-                documents=[doc.page_content],
-                metadatas=[doc.metadata],
-                ids=[f"doc_{i}"],
-                embeddings=[embedding]
-            )
+        collection = client.get_collection(collection_name)
+        print(f"Created embeddings for {len(documents)} documents")
     return collection
 
 ###
@@ -147,15 +143,18 @@ def process_to_embedding():
 # @return: top 3 relevant documents
 ###
 def query_to_local(user_input):
+    print("Processing query...")
     collection2 = process_to_embedding() # ensure collection is ready
+    print("Generating query embedding...")
     response = embedding_model.embed_query(text=user_input) # embedding query so we can search on vectors
 
+    print("Searching for relevant documents...")
     # query the collection for relevant documents
     results = collection2.query(
             query_embeddings = response,
             n_results=3
         )
-    
+    print(f"Found {len(results['documents'][0])} relevant documents")
     return results
 
 
